@@ -6,7 +6,7 @@ pygame.init()
 pygame.font.init()
 WIN = pygame.display.set_mode((700,700))
 pygame.display.set_caption("12am Snake")
-BLOCK = 30
+BLOCK = 20
 font_style = pygame.font.SysFont("Comic Sans", 70)
 
 
@@ -30,7 +30,9 @@ def screen(snake, apple, score):
 def main():
     run = True
     clock = pygame.time.Clock()
-    snake = pygame.Rect(randint(97,573), randint(97,573), BLOCK, BLOCK)
+    x1_change = 0
+    y1_change = 0
+    snake = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     apple = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     score = 0
     while run:
@@ -41,22 +43,30 @@ def main():
 
             if event.type == pygame.QUIT:
                 run = False
-
-            snake.x += 3
-
-       
-        
-
             
             if eat: 
                 apple.x = randint(97, 573)
                 apple.y = randint(97, 573)
                 score += 1
-                print(score)
 
 
-            pygame.display.update()
-            screen(snake, apple, score)
+        if keys[pygame.K_UP]:
+            x1_change = 0
+            y1_change = -3
+        if keys[pygame.K_DOWN]:
+            x1_change = 0
+            y1_change = 3
+        if keys[pygame.K_RIGHT]:
+            x1_change = 3
+            y1_change = 0
+        if keys[pygame.K_LEFT]:
+            x1_change = -3
+            y1_change = 0
+        snake.x += x1_change
+        snake.y += y1_change 
+
+        screen(snake, apple, score)
+        pygame.display.update()
                 
     pygame.quit()
 
@@ -67,14 +77,17 @@ if __name__ == "__main__":
 
 
 
-# make blocks run smoother (and makes blocks smaller)
-
-# snake is always moving foward
 
 # put everything in grid 
 
 # snake gets longer
 
+# implement lives (3 lives) and game over screeen
+#^ game over screen includes restart button... this means we may have to also make a homescreeen
+
 # fix border stuff
+
+# fix the fact that sometimes the apple/score doesnt update when the snake touches it 
+#^ (probably has to do with plavement of the if statement 
 
 # game over if snake hits border or itself
