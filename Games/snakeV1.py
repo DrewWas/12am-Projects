@@ -7,22 +7,21 @@ pygame.font.init()
 WIN = pygame.display.set_mode((700,700))
 pygame.display.set_caption("12am Snake")
 BLOCK = 30
+font_style = pygame.font.SysFont("Comic Sans", 70)
 
 
 def screen(snake, apple, score):
     WIN.fill((0,0,0))
     #Scoreboard
-    scoreboard = pygame.font.SysFont("Comic Sans", 75)
-    textsurface = scoreboard.render("Score: " + str(score), 1, (80, 104, 235))
-    WIN.blit(textsurface, (250, 50))
+    scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
+    WIN.blit(scoreboard, (240,30))
     #Border
     pygame.draw.rect(WIN, (255,105,180), pygame.Rect(95, 95, 510, 510), 1)
     #Snake
     pygame.draw.rect(WIN, (0,147,255), pygame.Rect(snake.x, snake.y, BLOCK, BLOCK))
     #Apple
     pygame.draw.rect(WIN, (102, 255, 102), pygame.Rect(apple.x, apple.y, BLOCK, BLOCK))
-    pygame.display.update()
-
+    
 
 
 
@@ -39,22 +38,24 @@ def main():
         for event in pygame.event.get():
             keys = pygame.key.get_pressed()
             eat = snake.colliderect(apple)
+
             if event.type == pygame.QUIT:
                 run = False
-            if keys[pygame.K_w] and snake.y >= 103:
-                snake.y -= 10
-            if keys[pygame.K_s] and snake.y <= 568:
-                snake.y += 10
-            if keys[pygame.K_d] and snake.x <= 568:
-                snake.x += 20
-            if keys[pygame.K_a] and snake.x >= 103:
-                snake.x -= 20
+
+            snake.x += 3
+
+       
+        
+
+            
             if eat: 
                 apple.x = randint(97, 573)
                 apple.y = randint(97, 573)
                 score += 1
                 print(score)
 
+
+            pygame.display.update()
             screen(snake, apple, score)
                 
     pygame.quit()
@@ -66,11 +67,9 @@ if __name__ == "__main__":
 
 
 
-# fix git
-
-# scoreboard
-
 # make blocks run smoother (and makes blocks smaller)
+
+# snake is always moving foward
 
 # put everything in grid 
 
@@ -78,3 +77,4 @@ if __name__ == "__main__":
 
 # fix border stuff
 
+# game over if snake hits border or itself
