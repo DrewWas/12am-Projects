@@ -15,10 +15,6 @@ def screen(snake, apple, score, matrix, lives):
     livesDisplay = font_style.render("Lives left: " + str(lives), True, (23, 81, 126))
     WIN.blit(scoreboard, (100,30))
     WIN.blit(livesDisplay, (350, 30))
-    #GRID 
-    for i in range(25):
-        for j in range(25):
-            pygame.draw.rect(WIN, (255,255,255), pygame.Rect(i * BLOCK + 90, j * BLOCK + 90, BLOCK, BLOCK), 1)
     #Snake
     for i in matrix:
         pygame.draw.rect(WIN, (0,147,255), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
@@ -42,30 +38,30 @@ def main():
     lives = 3
     matrix = []
     while run:
-        clock.tick(120)
+        clock.tick(10)
         for event in pygame.event.get():
             keys = pygame.key.get_pressed()
 
             if event.type == pygame.QUIT:
                 run = False
 
+        
+        if keys[pygame.K_LEFT] or keys[pygame.K_j]:
+            x1_change = -BLOCK
+            y1_change = 0
+        if keys[pygame.K_RIGHT] or keys[pygame.K_l]:
+            x1_change = BLOCK 
+            y1_change = 0
+        if keys[pygame.K_UP] or keys[pygame.K_i]:
+            x1_change = 0 
+            y1_change = -BLOCK 
+        if keys[pygame.K_DOWN] or keys[pygame.K_k]:
+            x1_change = 0 
+            y1_change = BLOCK 
 
-        if keys[pygame.K_UP]:
-            x1_change = 0
-            y1_change = -2
-        if keys[pygame.K_DOWN]:
-            x1_change = 0
-            y1_change = 2
-        if keys[pygame.K_RIGHT]:
-            x1_change = 2
-            y1_change = 0
-        if keys[pygame.K_LEFT]:
-            x1_change = -2
-            y1_change = 0
         snake.x += x1_change
         snake.y += y1_change
-        
-        if snake.x <= 95 or snake.x >= 589 or snake.y <= 95 or snake.y >= 589:
+        if snake.x <= 80 or snake.x >= 589 or snake.y <= 80 or snake.y >= 589:
             lives -= 1
         
         head = []
@@ -92,18 +88,14 @@ if __name__ == "__main__":
 
 
 
-# put snake in  grid 
 
 # implement lives (3 lives) and game over screeen
 #^ game over screen includes restart button... this means we may have to also make a homescreeen
 
-# fix border stuff
-# lives border may need to be updated to accomodate new grid
-
-# snake grows by 20px (original size) when it eats an apple
-# as of rn snake only grows by 2pxs and program redraws squares on top of each other
-# should draw sqaures side by side, not on top of each other
-
 # dont spawn food on blocks snake is already on
+
+# make head of snake diffrent color 
+
+# refresh drawing function faster?
 
 # game over if snake hits border or itself
