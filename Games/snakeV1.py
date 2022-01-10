@@ -10,6 +10,9 @@ font_style = pygame.font.SysFont("Comic Sans", 50)
 
 def screen(snake, apple, score, matrix, lives):
     WIN.fill((0,0,0))
+    xx = 40
+    yy = 100
+    zz = 0
     #Scoreboard
     scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
     livesDisplay = font_style.render("Lives left: " + str(lives), True, (23, 81, 126))
@@ -17,9 +20,13 @@ def screen(snake, apple, score, matrix, lives):
     WIN.blit(livesDisplay, (350, 30))
     #Snake
     for i in matrix:
-        pygame.draw.rect(WIN, (0,147,255), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
+        pygame.draw.rect(WIN, (xx, yy, zz), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
+        if zz >= 255:
+            zz = 0
+        else:
+            zz += 5 
     #Apple
-    pygame.draw.rect(WIN, (102, 255, 102), pygame.Rect(apple.x, apple.y, BLOCK, BLOCK))
+    pygame.draw.rect(WIN, (255, 80, 80), pygame.Rect(apple.x, apple.y, BLOCK, BLOCK))
     #Border
     pygame.draw.rect(WIN, (255,105,180), pygame.Rect(90, 90, 500, 500), 1) 
 
