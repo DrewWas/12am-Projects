@@ -7,18 +7,21 @@ pygame.font.init()
 WIN = pygame.display.set_mode((700,700))
 pygame.display.set_caption("12am Snake")
 BLOCK = 20
-font_style = pygame.font.SysFont("Comic Sans", 70)
-
+font_style = pygame.font.SysFont("Comic Sans", 50)
 
 def screen(snake, apple, score, matrix, lives):
     WIN.fill((0,0,0))
     #Scoreboard
     scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
     livesDisplay = font_style.render("Lives left: " + str(lives), True, (23, 81, 126))
-    WIN.blit(scoreboard, (140,30))
-    WIN.blit(livesDisplay, (400, 30))
+    WIN.blit(scoreboard, (100,30))
+    WIN.blit(livesDisplay, (350, 30))
+    #GRID 
+    for i in range(25):
+        for j in range(25):
+            pygame.draw.rect(WIN, (255,255,255), pygame.Rect(i * BLOCK + 95, j * BLOCK + 95, BLOCK, BLOCK), 1)
     #Border
-    pygame.draw.rect(WIN, (255,105,180), pygame.Rect(95, 95, 510, 510), 1)
+    pygame.draw.rect(WIN, (255,105,180), pygame.Rect(95, 95, 495, 495), 1)
     #Snake
     for i in matrix:
         pygame.draw.rect(WIN, (0,147,255), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
@@ -38,37 +41,39 @@ def main():
     snake = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     apple = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     score = 0
-    lives = 0
+    lives = 3
     matrix = []
     while run:
         clock.tick(120)
         for event in pygame.event.get():
             keys = pygame.key.get_pressed()
-            eat = snake.colliderect(apple)
 
             if event.type == pygame.QUIT:
                 run = False
             
-            if eat: 
-                apple.x = randint(97, 573)
-                apple.y = randint(97, 573)
-                score += 1
+        if snake.colliderect(apple):
+            apple.x = randint(97, 573)
+            apple.y = randint(97, 573)
+            score += 1
 
 
         if keys[pygame.K_UP]:
             x1_change = 0
-            y1_change = -3
+            y1_change = -2
         if keys[pygame.K_DOWN]:
             x1_change = 0
-            y1_change = 3
+            y1_change = 2
         if keys[pygame.K_RIGHT]:
-            x1_change = 3
+            x1_change = 2
             y1_change = 0
         if keys[pygame.K_LEFT]:
-            x1_change = -3
+            x1_change = -2
             y1_change = 0
         snake.x += x1_change
-        snake.y += y1_change 
+        snake.y += y1_change
+        
+        if snake.x <= 95 or snake.x >= 589 or snake.y <= 95 or snake.y >= 589:
+            lives -= 1
         
         head = []
         head.append(snake.x)
@@ -76,7 +81,6 @@ def main():
         matrix.append(head)
         if len(matrix) > score + 1:
             del matrix[0]
-        print(matrix)
 
         screen(snake, apple, score, matrix, lives)
         pygame.display.update()
@@ -98,9 +102,10 @@ if __name__ == "__main__":
 
 # fix border stuff
 
-# dont spawn food on blocks snake is already on
+# snake grows by 20px (original size) when it eats an apple
+# as of rn snake only grows by 2pxs and program redraws squares on top of each other
+# should draw sqaures side by side, not on top of each other
 
-# fix the fact that sometimes the apple/score doesnt update when the snake touches it 
-#^ (probably has to do with plavement of the if statement 
+# dont spawn food on blocks snake is already on
 
 # game over if snake hits border or itself
