@@ -1,7 +1,6 @@
 import pygame
 from random import randint 
 
-
 pygame.init()
 pygame.font.init()
 WIN = pygame.display.set_mode((700,700))
@@ -19,15 +18,14 @@ def screen(snake, apple, score, matrix, lives):
     #GRID 
     for i in range(25):
         for j in range(25):
-            pygame.draw.rect(WIN, (255,255,255), pygame.Rect(i * BLOCK + 95, j * BLOCK + 95, BLOCK, BLOCK), 1)
-    #Border
-    pygame.draw.rect(WIN, (255,105,180), pygame.Rect(95, 95, 495, 495), 1)
+            pygame.draw.rect(WIN, (255,255,255), pygame.Rect(i * BLOCK + 90, j * BLOCK + 90, BLOCK, BLOCK), 1)
     #Snake
     for i in matrix:
         pygame.draw.rect(WIN, (0,147,255), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
     #Apple
     pygame.draw.rect(WIN, (102, 255, 102), pygame.Rect(apple.x, apple.y, BLOCK, BLOCK))
-    
+    #Border
+    pygame.draw.rect(WIN, (255,105,180), pygame.Rect(90, 90, 500, 500), 1) 
 
 
 
@@ -38,8 +36,9 @@ def main():
     clock = pygame.time.Clock()
     x1_change = 0
     y1_change = 0
-    snake = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
-    apple = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
+    generate = (randint(0,25) * BLOCK) + 90
+    apple = pygame.draw.rect(WIN, (0,255,32), pygame.Rect(generate, generate, BLOCK, BLOCK))
+    snake = pygame.Rect(randint(97,573), randint(97,573), BLOCK, BLOCK)
     score = 0
     lives = 3
     matrix = []
@@ -50,11 +49,6 @@ def main():
 
             if event.type == pygame.QUIT:
                 run = False
-            
-        if snake.colliderect(apple):
-            apple.x = randint(97, 573)
-            apple.y = randint(97, 573)
-            score += 1
 
 
         if keys[pygame.K_UP]:
@@ -82,7 +76,12 @@ def main():
         if len(matrix) > score + 1:
             del matrix[0]
 
-        screen(snake, apple, score, matrix, lives)
+        if snake.colliderect(apple):
+            apple.x = generate
+            apple.y = generate
+            score += 1
+
+        screen(snake ,apple, score, matrix, lives)
         pygame.display.update()
                 
     pygame.quit()
@@ -94,7 +93,7 @@ if __name__ == "__main__":
 
 
 
-
+#still trying to get apple to respawn in grid when touched 
 # put everything in grid 
 
 # implement lives (3 lives) and game over screeen
