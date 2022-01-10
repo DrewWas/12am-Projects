@@ -36,9 +36,8 @@ def main():
     clock = pygame.time.Clock()
     x1_change = 0
     y1_change = 0
-    generate = (randint(0,25) * BLOCK) + 90
-    apple = pygame.draw.rect(WIN, (0,255,32), pygame.Rect(generate, generate, BLOCK, BLOCK))
-    snake = pygame.Rect(randint(97,573), randint(97,573), BLOCK, BLOCK)
+    apple = pygame.draw.rect(WIN, (0,255,32), pygame.Rect((randint(0,24) * BLOCK) + 90, (randint(0,24) * BLOCK) + 90, BLOCK, BLOCK))
+    snake = pygame.Rect((randint(0,24) * BLOCK) + 90, (randint(0,24) * BLOCK) + 90,  BLOCK, BLOCK)
     score = 0
     lives = 3
     matrix = []
@@ -77,8 +76,8 @@ def main():
             del matrix[0]
 
         if snake.colliderect(apple):
-            apple.x = generate
-            apple.y = generate
+            apple.x = (randint(0,24) * BLOCK) + 90
+            apple.y = (randint(0,24) * BLOCK) + 90
             score += 1
 
         screen(snake ,apple, score, matrix, lives)
@@ -93,13 +92,13 @@ if __name__ == "__main__":
 
 
 
-#still trying to get apple to respawn in grid when touched 
-# put everything in grid 
+# put snake in  grid 
 
 # implement lives (3 lives) and game over screeen
 #^ game over screen includes restart button... this means we may have to also make a homescreeen
 
 # fix border stuff
+# lives border may need to be updated to accomodate new grid
 
 # snake grows by 20px (original size) when it eats an apple
 # as of rn snake only grows by 2pxs and program redraws squares on top of each other
