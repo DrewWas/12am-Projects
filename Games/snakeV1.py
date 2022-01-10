@@ -10,7 +10,7 @@ BLOCK = 20
 font_style = pygame.font.SysFont("Comic Sans", 70)
 
 
-def screen(snake, apple, score):
+def screen(snake, apple, score, matrix):
     WIN.fill((0,0,0))
     #Scoreboard
     scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
@@ -18,7 +18,8 @@ def screen(snake, apple, score):
     #Border
     pygame.draw.rect(WIN, (255,105,180), pygame.Rect(95, 95, 510, 510), 1)
     #Snake
-    pygame.draw.rect(WIN, (0,147,255), pygame.Rect(snake.x, snake.y, BLOCK, BLOCK))
+    for i in matrix:
+        pygame.draw.rect(WIN, (0,147,255), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
     #Apple
     pygame.draw.rect(WIN, (102, 255, 102), pygame.Rect(apple.x, apple.y, BLOCK, BLOCK))
     
@@ -35,6 +36,7 @@ def main():
     snake = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     apple = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     score = 0
+    matrix = []
     while run:
         clock.tick(120)
         for event in pygame.event.get():
@@ -64,8 +66,16 @@ def main():
             y1_change = 0
         snake.x += x1_change
         snake.y += y1_change 
+        
+        head = []
+        head.append(snake.x)
+        head.append(snake.y)
+        matrix.append(head)
+        if len(matrix) > score + 1:
+            del matrix[0]
+        print(matrix)
 
-        screen(snake, apple, score)
+        screen(snake, apple, score, matrix)
         pygame.display.update()
                 
     pygame.quit()
@@ -86,6 +96,8 @@ if __name__ == "__main__":
 #^ game over screen includes restart button... this means we may have to also make a homescreeen
 
 # fix border stuff
+
+# dont spawn food on blocks snake is already on
 
 # fix the fact that sometimes the apple/score doesnt update when the snake touches it 
 #^ (probably has to do with plavement of the if statement 
