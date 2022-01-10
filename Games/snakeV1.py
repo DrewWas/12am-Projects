@@ -10,11 +10,13 @@ BLOCK = 20
 font_style = pygame.font.SysFont("Comic Sans", 70)
 
 
-def screen(snake, apple, score, matrix):
+def screen(snake, apple, score, matrix, lives):
     WIN.fill((0,0,0))
     #Scoreboard
     scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
-    WIN.blit(scoreboard, (240,30))
+    livesDisplay = font_style.render("Lives left: " + str(lives), True, (23, 81, 126))
+    WIN.blit(scoreboard, (140,30))
+    WIN.blit(livesDisplay, (400, 30))
     #Border
     pygame.draw.rect(WIN, (255,105,180), pygame.Rect(95, 95, 510, 510), 1)
     #Snake
@@ -36,6 +38,7 @@ def main():
     snake = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     apple = pygame.Rect(randint(97, 573), randint(97, 573), BLOCK, BLOCK)
     score = 0
+    lives = 0
     matrix = []
     while run:
         clock.tick(120)
@@ -75,7 +78,7 @@ def main():
             del matrix[0]
         print(matrix)
 
-        screen(snake, apple, score, matrix)
+        screen(snake, apple, score, matrix, lives)
         pygame.display.update()
                 
     pygame.quit()
@@ -89,8 +92,6 @@ if __name__ == "__main__":
 
 
 # put everything in grid 
-
-# snake gets longer
 
 # implement lives (3 lives) and game over screeen
 #^ game over screen includes restart button... this means we may have to also make a homescreeen
