@@ -1,5 +1,5 @@
 import pygame
-from random import randint 
+from random import randint, randrange
 
 pygame.init()
 pygame.font.init()
@@ -8,16 +8,14 @@ pygame.display.set_caption("12am Snake")
 BLOCK = 20
 font_style = pygame.font.SysFont("Comic Sans", 50)
 
-def screen(snake, apple, score, matrix, lives):
+def screen(snake, apple, score, matrix):
     WIN.fill((0,0,0))
     xx = 40
     yy = 100
     zz = 0
     #Scoreboard
     scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
-    livesDisplay = font_style.render("Lives left: " + str(lives), True, (23, 81, 126))
     WIN.blit(scoreboard, (100,30))
-    WIN.blit(livesDisplay, (350, 30))
     #Snake
     for i in matrix:
         pygame.draw.rect(WIN, (xx, yy, zz), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
@@ -31,6 +29,16 @@ def screen(snake, apple, score, matrix, lives):
     pygame.draw.rect(WIN, (255,105,180), pygame.Rect(90, 90, 500, 500), 1) 
 
 
+def gameOver():
+    WIN.fill((0,0,0))
+    display = font_style.render("Press spacebar to play again", True, (0,147,255))
+    WIN.blit(display, (300, 350))
+    pygame.display.update()
+    if pygame.key.get_pressed()[pygame.K_SPACE]:
+        run = True
+        main()
+    if pygame.key.get_pressed()[pygame.K_q]:
+        pygame.quit()
 
 
 
@@ -42,7 +50,6 @@ def main():
     apple = pygame.draw.rect(WIN, (0,255,32), pygame.Rect((randint(0,24) * BLOCK) + 90, (randint(0,24) * BLOCK) + 90, BLOCK, BLOCK))
     snake = pygame.Rect((randint(0,24) * BLOCK) + 90, (randint(0,24) * BLOCK) + 90,  BLOCK, BLOCK)
     score = 0
-    lives = 3
     matrix = []
     while run:
         clock.tick(10)
@@ -69,7 +76,7 @@ def main():
         snake.x += x1_change
         snake.y += y1_change
         if snake.x <= 80 or snake.x >= 589 or snake.y <= 80 or snake.y >= 589:
-            lives -= 1
+            run = False
         
         head = []
         head.append(snake.x)
@@ -78,16 +85,22 @@ def main():
         if len(matrix) > score + 1:
             del matrix[0]
 
+        for x in matrix[:-1]:
+            if x == head:
+                run = False
+
         if snake.colliderect(apple):
             apple.x = (randint(0,24) * BLOCK) + 90
             apple.y = (randint(0,24) * BLOCK) + 90
+            #apple.x = round(randrange(0, 700 - BLOCK) / 20) * 20
+            #apple.y = round(randrange(0, 700 - BLOCK) / 20) * 20
             score += 1
 
-        screen(snake ,apple, score, matrix, lives)
+
+        screen(snake ,apple, score, matrix)
         pygame.display.update()
                 
-    pygame.quit()
-
+    gameOver()
 
 if __name__ == "__main__":
     main()
@@ -96,13 +109,10 @@ if __name__ == "__main__":
 
 
 
-# implement lives (3 lives) and game over screeen
-#^ game over screen includes restart button... this means we may have to also make a homescreeen
 
 # dont spawn food on blocks snake is already on
 
-# make head of snake diffrent color 
+# fix gameOver function
 
 # refresh drawing function faster?
 
-# game over if snake hits border or itself
