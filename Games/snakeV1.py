@@ -1,3 +1,6 @@
+# if using this for an ML algo, I still need to update the food regen function so that it cant 
+# spawn on a block that is already 'taken' by a snkae
+
 import pygame
 import sys
 from random import randint, randrange, choice
@@ -109,14 +112,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-# dont spawn food on blocks snake is already on
-
-
-# refresh drawing function faster?
 
