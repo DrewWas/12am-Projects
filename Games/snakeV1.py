@@ -39,7 +39,7 @@ def gameOver():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 go = False
-            if pygame.key.get_pressed()[pygame.K_SPACE]:
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
                 main()
     pygame.quit()
 
@@ -56,23 +56,22 @@ def main():
     matrix = []
     while run:
         clock.tick(10)
+        #keys = pygame.key.get_pressed()
         for event in pygame.event.get():
-            keys = pygame.key.get_pressed()
-
             if event.type == pygame.QUIT:
                 run = False
 
         
-        if keys[pygame.K_LEFT] or keys[pygame.K_j]:
+        if pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_j]:
             x1_change = -BLOCK
             y1_change = 0
-        if keys[pygame.K_RIGHT] or keys[pygame.K_l]:
+        if pygame.key.get_pressed()[pygame.K_RIGHT] or pygame.key.get_pressed()[pygame.K_l]:
             x1_change = BLOCK 
             y1_change = 0
-        if keys[pygame.K_UP] or keys[pygame.K_i]:
+        if pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_i]:
             x1_change = 0 
             y1_change = -BLOCK 
-        if keys[pygame.K_DOWN] or keys[pygame.K_k]:
+        if pygame.key.get_pressed()[pygame.K_DOWN] or pygame.key.get_pressed()[pygame.K_k]:
             x1_change = 0 
             y1_change = BLOCK 
 
