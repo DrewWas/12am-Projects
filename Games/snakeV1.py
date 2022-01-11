@@ -1,5 +1,6 @@
 import pygame
-from random import randint, randrange
+import sys
+from random import randint, randrange, choice
 
 pygame.init()
 pygame.font.init()
@@ -12,7 +13,7 @@ def screen(snake, apple, score, matrix):
     WIN.fill((0,0,0))
     xx = 40
     yy = 100
-    zz = 0
+    zz = 5
     #Scoreboard
     scoreboard = font_style.render("Score: " + str(score), True, (23, 81, 126))
     WIN.blit(scoreboard, (100,30))
@@ -20,9 +21,9 @@ def screen(snake, apple, score, matrix):
     for i in matrix:
         pygame.draw.rect(WIN, (xx, yy, zz), pygame.Rect(i[0], i[1], BLOCK, BLOCK))
         if zz >= 255:
-            zz = 0
+            zz = 5
         else:
-            zz += 5 
+            zz += 10
     #Apple
     pygame.draw.rect(WIN, (255, 80, 80), pygame.Rect(apple.x, apple.y, BLOCK, BLOCK))
     #Border
@@ -42,6 +43,7 @@ def gameOver():
         if pygame.key.get_pressed()[pygame.K_SPACE]:
                 main()
     pygame.quit()
+    sys.exit()
 
 
 
@@ -92,10 +94,11 @@ def main():
                 run = False
 
         if snake.colliderect(apple):
-            apple.x = (randint(0,24) * BLOCK) + 90
-            apple.y = (randint(0,24) * BLOCK) + 90
-            #apple.x = round(randrange(0, 700 - BLOCK) / 20) * 20
-            #apple.y = round(randrange(0, 700 - BLOCK) / 20) * 20
+            #apple.x = (randint(0,24) * BLOCK) + 90
+            #apple.y = (randint(0,24) * BLOCK) + 90
+            for x in matrix:
+                apple.x = (choice([i for i in range(0,24) if i !=  x[0]]) * BLOCK) + 90
+                apple.y = (choice([i for i in range(0,24) if i !=  x[1]]) * BLOCK) + 90
             score += 1
 
 
@@ -114,7 +117,6 @@ if __name__ == "__main__":
 
 # dont spawn food on blocks snake is already on
 
-# fix gameOver function
 
 # refresh drawing function faster?
 
