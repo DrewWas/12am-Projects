@@ -30,15 +30,18 @@ def screen(snake, apple, score, matrix):
 
 
 def gameOver():
-    WIN.fill((0,0,0))
-    display = font_style.render("Press spacebar to play again", True, (0,147,255))
-    WIN.blit(display, (300, 350))
-    pygame.display.update()
-    if pygame.key.get_pressed()[pygame.K_SPACE]:
-        run = True
-        main()
-    if pygame.key.get_pressed()[pygame.K_q]:
-        pygame.quit()
+    go = True
+    while go:
+        WIN.fill((0,0,0))
+        display = font_style.render("Press spacebar to play again", True, (0,147,255))
+        WIN.blit(display, (100, 350))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                go = False
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                main()
+    pygame.quit()
 
 
 
@@ -99,7 +102,7 @@ def main():
 
         screen(snake ,apple, score, matrix)
         pygame.display.update()
-                
+    
     gameOver()
 
 if __name__ == "__main__":
