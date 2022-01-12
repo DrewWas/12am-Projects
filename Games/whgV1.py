@@ -62,7 +62,6 @@ def main():
         
         # check if player touches finish line and increase score so draw
         # function calls next level, may have to fuck around with parameters
-
         draw(player, score)
 
 
