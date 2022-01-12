@@ -18,16 +18,18 @@ def one():
     pygame.draw.line(WIN, (0,0,0), (50,550), (310,550), 2)
     pygame.draw.line(WIN, (0,0,0), (310,550), (310,505), 2)
     pygame.draw.line(WIN, (0,0,0), (310,505), (750,505), 2)
+    pygame.draw.line(WIN, (0,0,0), (750,505), (750,285), 2)
+    pygame.draw.line(WIN, (0,0,0), (750,285), (800, 285), 2)
     pygame.draw.line(WIN, (0,0,0), (50,250), (200,250), 2)
     pygame.draw.line(WIN, (0,0,0), (200,250), (200,505), 2)
     pygame.draw.line(WIN, (0,0,0), (200,505), (250,505), 2)
     pygame.draw.line(WIN, (0,0,0), (250,505), (250,285), 2)
-    pygame.draw.line(WIN, (0,0,0), (250,285), (750, 285), 2)
-
-
+    pygame.draw.line(WIN, (0,0,0), (250,285), (690,285), 2)
+    pygame.draw.line(WIN, (0,0,0), (690, 285), (690, 250), 2)
+    pygame.draw.line(WIN, (0,0,0), (690, 250), (950, 250), 2)
     pygame.draw.line(WIN, (0,0,0), (800, 550), (950, 550), 2)
     pygame.draw.line(WIN, (0,0,0), (950, 250), (950, 550), 2)
-    pygame.draw.line(WIN, (0,0,0), (800,550), (800, 290), 2)
+    pygame.draw.line(WIN, (0,0,0), (800,550), (800, 285), 2)
 
 
 
