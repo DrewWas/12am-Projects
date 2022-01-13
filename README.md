@@ -6,3 +6,6 @@ Projects to improve my skills. Hella random stuff
 	- Pong
 	- Snake 
 	- Worlds Hardest Game (up to level 5) --in-progress
+
+* Math
+	- Derivative Calculator --in-progress
