@@ -30,22 +30,36 @@ def one():
     pygame.draw.line(WIN, (0,0,0), (800, 550), (950, 550), 2)
     pygame.draw.line(WIN, (0,0,0), (950, 250), (950, 550), 2)
     pygame.draw.line(WIN, (0,0,0), (800,550), (800, 285), 2)
+     
 
 
 
-
-def draw(player, score):
+def draw(player, score, circle1, circle2, circle3, circle4, circle5, circle6):
     WIN.fill((220,220,220))
     if score == 1:
         one()
-    pygame.draw.rect(WIN, (0,147,255), pygame.Rect(player.x, player.y, 20, 20))
+    pygame.draw.rect(WIN, (0,147,255), pygame.Rect(player.x, player.y, 25, 25))
+    pygame.draw.circle(WIN, (255,102,108), (circle1.x, circle1.y), 15)
+    pygame.draw.circle(WIN, (255,102,108), (circle2.x, circle2.y), 15)
+    pygame.draw.circle(WIN, (255,102,108), (circle3.x, circle3.y), 15)
+    pygame.draw.circle(WIN, (255,102,108), (circle4.x, circle4.y), 15)
+    pygame.draw.circle(WIN, (255,102,108), (circle5.x, circle5.y), 15)
+    pygame.draw.circle(WIN, (255,102,108), (circle6.x, circle6.y), 15)
     pygame.display.update()
 
 
 def main():
     run = True
     score = 1
-    player = pygame.Rect(100, 320, 20, 20)
+    player = pygame.Rect(100,320,25,25)
+    circle1 = pygame.Rect(270,375,10,10)
+    circle2 = pygame.Rect(270,455,10,10)
+    circle3 = pygame.Rect(730,335,10,10)
+    circle4 = pygame.Rect(730,490,10,10)
+    circle5 = pygame.Rect(270,302,10,10)
+    circle6 = pygame.Rect(730,415,10,10)
+    circle1Vel = 7
+    circle3Vel = -7
     while run:
         pygame.time.Clock().tick(60)
         for event in pygame.event.get():
@@ -59,10 +73,26 @@ def main():
             player.x += 5 
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             player.x -= 5 
-        
+       
+        circle1.x += circle1Vel
+        circle2.x += circle1Vel
+        circle3.x += circle3Vel
+        circle4.x += circle3Vel
+        circle5.x += circle1Vel
+        circle6.x += circle3Vel
+
+        if circle1.x >= 730:
+            circle1Vel = -7
+        if circle1.x <= 270:
+            circle1Vel = 7
+        if circle3.x <= 270:
+            circle3Vel = 7
+        if circle3.x >= 730:
+            circle3Vel = -7
+
         # check if player touches finish line and increase score so draw
         # function calls next level, may have to fuck around with parameters
-        draw(player, score)
+        draw(player, score, circle1, circle2, circle3, circle4, circle5, circle6)
 
 
     pygame.quit()
