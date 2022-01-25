@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
 int main(){
 	string func;
 	system("clear");
@@ -21,5 +20,3 @@ int main(){
 // call rules accordingly
 //
 // This is super high level... Ill probably realize how hard this is once I actually get started
-
-
