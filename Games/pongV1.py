@@ -40,6 +40,14 @@ def ballgo(ball, p1, p2):
     if ball.colliderect(p2) == True:
         VELOCITY[0] = - VELOCITY[0]
 
+def agent(p2):
+    keys_pressed = pygame.key.get_pressed()
+    if keys_pressed[pygame.K_UP] and p2.y > 10:
+        p2.y -= 8
+    if keys_pressed[pygame.K_DOWN] and p2.y < 570:
+        p2.y += 8
+
+
 
 def main():
     score1 = 0
@@ -60,10 +68,11 @@ def main():
             p1.y -= 8
         if keys_pressed[pygame.K_s] and p1.y < 570:
             p1.y += 8
-        if keys_pressed[pygame.K_UP] and p2.y > 10:
-            p2.y -= 8
-        if keys_pressed[pygame.K_DOWN] and p2.y < 570:
-            p2.y += 8
+        #if keys_pressed[pygame.K_UP] and p2.y > 10:
+            #p2.y -= 8
+        #if keys_pressed[pygame.K_DOWN] and p2.y < 570:
+            #p2.y += 8
+        agent(p2)
 
         ballgo(ball, p1, p2)
         
