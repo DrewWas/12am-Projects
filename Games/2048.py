@@ -4,7 +4,7 @@ from random import choice
 
 
 pygame.init()
-WIDTH, HEIGHT = 600,700
+WIDTH, HEIGHT = 700,750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 COLOR2 = (255,0,0)
@@ -20,54 +20,30 @@ COLOR1024 = (143, 0, 199)
 COLOR2048 = (199,0,169)
 COLOR_PLUS = (199,0,86)
 pygame.display.set_caption("2048")
-FirstBlocks = [COLOR2, COLOR4]
 
 
+def drawWindow():
+    WIN.fill((250,248,239))
+    # Border(s)
+    border_vert_x = 205
+    border_horz_y = 255 
+    pygame.draw.rect(WIN, (187,173,160), pygame.Rect(50,100,600,600), 15, 10)
+    for i in range(3):
+        pygame.draw.line(WIN, (187, 173, 160), (border_vert_x,100), (border_vert_x,690), width=15)
+        border_vert_x += 145
+    for i in range(3):
+        pygame.draw.line(WIN, (187, 173, 160), (50, border_horz_y), (640, border_horz_y), width=15)
+        border_horz_y += 145
 
-def drawWindow(score):
-    WIN.fill((0,0,0))
-    pygame.draw.rect(WIN, (255,255,255), pygame.Rect(20,120,560,560), 3)
-    generateBlocks()
+    # Blank/filler squares
+    for i in range(4):
+        for j in range(4):
+            pygame.draw.rect(WIN, (205,192,180), pygame.Rect((i * 19) * 7.7 + 62, (j * 19) * 7.7 + 110, 140, 140), 0, 8)
+
+    # Scoreboard
+
     pygame.display.update()
     
-
-
-def generateBlocks():
-    #Generate 2 blocks in at random grid points (grid of 4x4)
-
-    #Grid coordinates
-    A = 40
-    B = 175
-    C = 310
-    D = 445
-    W = 140
-    X = 275
-    Y = 410
-    Z = 545
-    GRID = [[A,W], [B,W], [C,W], [D,W],
-            [A,X], [B,X], [C,X], [D,X],
-            [A,Y], [B,Y], [C,Y], [D,Y],
-            [A,Z], [B,Z], [C,Z], [D,Z]
-    ]
-
-    BLOCKSIZE = 115
-    pygame.draw.rect(WIN, FirstBlocks[1], pygame.Rect(A,Y, BLOCKSIZE, BLOCKSIZE))
-    #LEFT OFF HERE.....    need the block to generate in one random position and stay there until further input
-   
-    
-
-
-    #If user swipes up, they blocks go up until they hit another block, the ceiling, or dont move if there is already one above
-
-    #If user swipes down/over, same rules apply
-
-    #While the blocks are moving up, they slowly move (they dont automatically appear)
-
-    #After the swipe, new 2 or 4 valued blocks appear relative to where they swiped (and not where there are already blocks)
-
-
-
-
 
 def main():
     run = True
@@ -79,8 +55,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+        # This is where game functionality goes
         
-        drawWindow(score)
+        drawWindow()
         
     
     pygame.quit()
@@ -89,12 +67,3 @@ def main():
 if __name__ ==  "__main__": 
     main()
         
-
-
-
-
-#TO DO 
-
-#Scoreboard that doesnt suck
-
-#Add numbers to the squares
