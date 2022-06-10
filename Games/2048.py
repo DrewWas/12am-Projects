@@ -1,6 +1,6 @@
 import pygame
-from pygame import Color, draw
-from random import choice
+from pygame import Color, draw, key
+from random import choice, randint
 
 
 pygame.init()
@@ -41,21 +41,27 @@ def drawWindow():
             pygame.draw.rect(WIN, (205,192,180), pygame.Rect((i * 19) * 7.7 + 62, (j * 19) * 7.7 + 110, 140, 140), 0, 8)
 
     # Scoreboard
-
-
     generateBlocks()
     pygame.display.update()
     
 
 def generateBlocks():  # (left, right, up, down)
 
+    # *Problem with this function is that the WIN.blit(numbers_font.render) makes the opening/closing loading process a lot longer, not sure why this is*
+
     # functionality (check if it can go..., what color...)
 
-    numbers_font = pygame.font.SysFont("Calibri", 50)
-    pygame.draw.rect(WIN, (COLOR_PLUS), pygame.Rect(300,300, 145, 145), 0, 8)
+    x1 = randint(0,3) * 19 * 7.7 + 62
+    y1 = randint(0,3) * 19 * 7.7 + 110
 
-    #x and y values of the text have to be + 5 and + 15 to offset drawing from (0,0)
-    WIN.blit(numbers_font.render("2048", True, (255,255,255)), (315,340))
+    numbers_font = pygame.font.SysFont("Calibri", 50)
+    pygame.draw.rect(WIN, (COLOR_PLUS), pygame.Rect(x1, y1, 140, 140), 0, 8)
+
+    #x and y values of the text have to be + 15 and + 40 to offset drawing from (0,0)
+    WIN.blit(numbers_font.render("2048", True, (255,255,255)), (x1 + 15, y1 + 40))
+
+
+def getrand():
 
 
 
@@ -72,8 +78,6 @@ def main():
 
         # This is where game functionality goes
         drawWindow()
-        
-    
     pygame.quit()
 
 
