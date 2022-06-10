@@ -42,8 +42,22 @@ def drawWindow():
 
     # Scoreboard
 
+
+    generateBlocks()
     pygame.display.update()
     
+
+def generateBlocks():  # (left, right, up, down)
+
+    # functionality (check if it can go..., what color...)
+
+    numbers_font = pygame.font.SysFont("Calibri", 50)
+    pygame.draw.rect(WIN, (COLOR_PLUS), pygame.Rect(300,300, 145, 145), 0, 8)
+
+    #x and y values of the text have to be + 5 and + 15 to offset drawing from (0,0)
+    WIN.blit(numbers_font.render("2048", True, (255,255,255)), (315,340))
+
+
 
 def main():
     run = True
@@ -57,7 +71,6 @@ def main():
                 run = False
 
         # This is where game functionality goes
-        
         drawWindow()
         
     
