@@ -4,7 +4,6 @@
 import pygame
 import sys
 from random import randint, randrange, choice
-
 pygame.init()
 pygame.font.init()
 WIN = pygame.display.set_mode((700,700))

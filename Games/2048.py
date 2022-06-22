@@ -50,9 +50,17 @@ def generateBlocks():  # (left, right, up, down)
     # *Problem with this function is that the WIN.blit(numbers_font.render) makes the opening/closing loading process a lot longer, not sure why this is*
 
     # functionality (check if it can go..., what color...)
+    
+    keys_pressed = pygame.key.get_pressed()
+    if keys_pressed[pygame.K_SPACE]:
+         x1 = getrand_x()
 
-    x1 = randint(0,3) * 19 * 7.7 + 62
+    x1 = 400
     y1 = randint(0,3) * 19 * 7.7 + 110
+
+    keys_pressed = pygame.key.get_pressed()
+    if keys_pressed[pygame.K_SPACE]:
+        getrand_x()
 
     numbers_font = pygame.font.SysFont("Calibri", 50)
     pygame.draw.rect(WIN, (COLOR_PLUS), pygame.Rect(x1, y1, 140, 140), 0, 8)
@@ -61,7 +69,8 @@ def generateBlocks():  # (left, right, up, down)
     WIN.blit(numbers_font.render("2048", True, (255,255,255)), (x1 + 15, y1 + 40))
 
 
-def getrand():
+def getrand_x():
+    return randint(0,3) * 19 * 7.7 + 62
 
 
 
