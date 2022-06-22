@@ -21,6 +21,10 @@ COLOR2048 = (199,0,169)
 COLOR_PLUS = (199,0,86)
 pygame.display.set_caption("2048")
 
+x1 = (randint(0,3) * 19) * 7.7 + 62
+y1 = (randint(0,3) * 19) * 7.7 + 110
+
+
 
 def drawWindow():
     WIN.fill((250,248,239))
@@ -41,40 +45,21 @@ def drawWindow():
             pygame.draw.rect(WIN, (205,192,180), pygame.Rect((i * 19) * 7.7 + 62, (j * 19) * 7.7 + 110, 140, 140), 0, 8)
 
     # Scoreboard
-    generateBlocks()
+    cubes()
     pygame.display.update()
     
 
-def generateBlocks():  # (left, right, up, down)
-
-    # *Problem with this function is that the WIN.blit(numbers_font.render) makes the opening/closing loading process a lot longer, not sure why this is*
-
-    # functionality (check if it can go..., what color...)
-    
-    keys_pressed = pygame.key.get_pressed()
-    if keys_pressed[pygame.K_SPACE]:
-         x1 = getrand_x()
-
-    x1 = 400
-    y1 = randint(0,3) * 19 * 7.7 + 110
-
-    keys_pressed = pygame.key.get_pressed()
-    if keys_pressed[pygame.K_SPACE]:
-        getrand_x()
-
-    numbers_font = pygame.font.SysFont("Calibri", 50)
-    pygame.draw.rect(WIN, (COLOR_PLUS), pygame.Rect(x1, y1, 140, 140), 0, 8)
-
-    #x and y values of the text have to be + 15 and + 40 to offset drawing from (0,0)
-    WIN.blit(numbers_font.render("2048", True, (255,255,255)), (x1 + 15, y1 + 40))
 
 
-def getrand_x():
-    return randint(0,3) * 19 * 7.7 + 62
+
+def cubes():
+    pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x1, y1, 140, 140), 0, 8)
+    pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x1, y1, 140, 140), 0, 8)
 
 
 
 def main():
+    global x1, y1
     run = True
     clock = pygame.time.Clock()
     score = 0
@@ -84,6 +69,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+
+        if pygame.key.get_pressed()[pygame.K_UP]:
+            y1 = y1 - 10
+        if pygame.key.get_pressed()[pygame.K_DOWN]:
+            y1 = y1 + 10
+        if pygame.key.get_pressed()[pygame.K_RIGHT]:
+            x1 = x1 + 10
+        if pygame.key.get_pressed()[pygame.K_LEFT]:
+            x1 = x1 - 10
+
+
 
         # This is where game functionality goes
         drawWindow()
