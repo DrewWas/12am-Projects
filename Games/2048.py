@@ -21,6 +21,8 @@ COLOR2048 = (199,0,169)
 COLOR_PLUS = (199,0,86)
 pygame.display.set_caption("2048")
 
+
+
 x1 = (randint(0,3) * 19) * 7.7 + 62
 y1 = (randint(0,3) * 19) * 7.7 + 110
 
@@ -54,7 +56,14 @@ def drawWindow():
 
 def cubes():
     pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x1, y1, 140, 140), 0, 8)
-    pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x1, y1, 140, 140), 0, 8)
+
+    # get two squares to spawn in random positions with each reload
+
+    # get them to only move within the grid
+
+    # they stop if they hit the borders or another cube (of a different type)
+
+    # if it hits a cube of the same color/type, they combine
 
 
 
