@@ -24,9 +24,9 @@ pygame.display.set_caption("2048")
 
 
 x1 = (randint(0,3) * 19) * 7.7 + 62
+x2 = (randint(0,3) * 19) * 7.7 + 62
 y1 = (randint(0,3) * 19) * 7.7 + 110
-
-
+y2 = (randint(0,3) * 19) * 7.7 + 110
 
 def drawWindow():
     WIN.fill((250,248,239))
@@ -47,7 +47,9 @@ def drawWindow():
             pygame.draw.rect(WIN, (205,192,180), pygame.Rect((i * 19) * 7.7 + 62, (j * 19) * 7.7 + 110, 140, 140), 0, 8)
 
     # Scoreboard
+    
     cubes()
+
     pygame.display.update()
     
 
@@ -55,15 +57,21 @@ def drawWindow():
 
 
 def cubes():
-    pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x1, y1, 140, 140), 0, 8)
-
     # get two squares to spawn in random positions with each reload
+    pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x1, y1, 140, 140), 0, 8)
+    pygame.draw.rect(WIN, (0,138,255), pygame.Rect(x2, y2, 140, 140), 0, 8)
+    
+    # with every move a new cube spawns in  
 
-    # get them to only move within the grid
+    # cubes only spawn in open squares
 
     # they stop if they hit the borders or another cube (of a different type)
 
     # if it hits a cube of the same color/type, they combine
+
+    # Put numbers on the cubes
+
+    # Add a scoreboard
 
 
 
@@ -73,6 +81,9 @@ def main():
     clock = pygame.time.Clock()
     score = 0
 
+    xchange = 0
+    ychange = 0
+
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
@@ -80,7 +91,8 @@ def main():
                 run = False
 
 
-        if pygame.key.get_pressed()[pygame.K_UP]:
+        # get them to only move within the grid
+        if pygame.key.get_pressed()[pygame.K_UP]:    # end of this line will be implementation of how to stop it from colliding
             y1 = y1 - 10
         if pygame.key.get_pressed()[pygame.K_DOWN]:
             y1 = y1 + 10
@@ -88,7 +100,6 @@ def main():
             x1 = x1 + 10
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             x1 = x1 - 10
-
 
 
         # This is where game functionality goes

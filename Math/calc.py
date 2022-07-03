@@ -1,4 +1,4 @@
-#Stupid program to help me try to learn OOP
+#wStupid program to help me try to learn OOP
 
 from math import *
 
