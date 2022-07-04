@@ -6,76 +6,44 @@ pygame.font.init()
 WIDTH, HEIGHT = 1120, 700
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("12am Breakout")
-DIFF = 0
-
 player_pos = randint(100,700)
-
-
-def homescreen():
-    WIN.fill((0,0,0))
-    global DIFF
-
-    my_font = pygame.font.SysFont("Arial", 50)
-    title_surface = my_font.render("Select Difficulty", False, (255, 255, 255))
-    
-    pygame.draw.rect(WIN, (0,136,255), pygame.Rect(150, 250, 200, 200), 1, 0)
-    easy_surface = my_font.render("Easy", False, (0,136,255))
-    easy1_surface = my_font.render("Press 1", False, (0,136,255))
-
-    pygame.draw.rect(WIN, (0,136,25), pygame.Rect(450, 250, 200, 200), 1, 0)
-    med_surface = my_font.render("Medium", False, (0,136,25))
-    med1_surface = my_font.render("Press 2", False, (0,136,25))
-
-    pygame.draw.rect(WIN, (200,36,25), pygame.Rect(750, 250, 200, 200), 1, 0)
-    hard_surface = my_font.render("Hard", False, (200,36,25))
-    hard1_surface = my_font.render("Press 3", False, (200,36,25))
-
-
-
-    WIN.blit(title_surface, (375,100))
-
-    WIN.blit(easy_surface, (200, 270))
-    WIN.blit(easy1_surface, (170, 350))
-    WIN.blit(med_surface, (460, 270))
-    WIN.blit(med1_surface, (470, 350))
-    WIN.blit(hard_surface, (800, 270))
-    WIN.blit(hard1_surface, (770, 350))
-
-    #DIFF = int(input())
-
-
-
-
-    pygame.display.update()
-
-
-
+ballx = randint(100,1000)
+bally = 400 
+player = None
+ball = None
 
 def draw():
     WIN.fill((0,0,0))
     red = 250
-    global player_pos
-    global DIFF
+    global player_pos, player
+    global ball, ballx, bally
 
     #player
-    pygame.draw.rect(WIN, (0,136,255), pygame.Rect(player_pos, 675, 100,20 ))
+    player = pygame.draw.rect(WIN, (0,136,255), pygame.Rect(player_pos, 675, 100,20 ))
 
     #blocks 
-    for i in range(3):
+    for i in range(6):
         for j in range(8):
             pygame.draw.rect(WIN, (red,36, 189), pygame.Rect(140 * j + 5,50 * i + 50, 130, 40))
         red -= 40
 
-    print(DIFF)
-            
+    #ball
+    ball = pygame.draw.circle(WIN, (255,255,255), (ballx, bally), 12)
+
 
     pygame.display.update()
 
 
+def gameOver():
+    print("Game over")
+
 def main():
     run = True
     clock = pygame.time.Clock()
-    global player_pos
+    global player_pos, player
+    global ball, ballx, bally
+
+    VEL = [-6,6]
 
     while run:
         clock.tick(60)
@@ -90,18 +58,34 @@ def main():
         if keys[pygame.K_RIGHT] and player_pos < 990:
             player_pos += 8 
 
+
+        ballx += VEL[0]
+        bally += VEL[1] 
+
+        #logic
+        if bally > 700:
+            run = False
+            gameOver()
+
+        if ballx > 1090 or ballx < 5:
+            VEL[0] = -VEL[0]
+
+
+        #code below will change
+        if bally > 680 or bally < 5:
+            VEL[1] = -VEL[1]
+
+        """
+        if ball.colliderect(player) == True:
+            VEL[0] = -VEL[0]
+        """
         draw()
 
     pygame.quit()
 
 
-def gameover():
-    return 0
-
-
-
 if __name__ == "__main__":
-    homescreen()
+    main()
 
 
 
